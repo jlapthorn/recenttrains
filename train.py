@@ -1,5 +1,4 @@
 #!/usr/env/python
-import common_train
 import requests
 from pushbullet import Pushbullet
 from bs4 import BeautifulSoup
