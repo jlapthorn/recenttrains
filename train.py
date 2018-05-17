@@ -28,5 +28,7 @@ def main():
                 if minutes > late:
                     msg = "The train leaving Winnersh at {0} was more than {3} minutes late.  It was {1} minutes late in total arriving at {2}".format(leave, str(minutes),arrival,str(late))   
                     pushbulletinit(msg)
-
-     main()
+    main()
+    
+    
+main()
