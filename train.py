@@ -1,6 +1,6 @@
 #!/usr/env/python
 import requests
-from time import jl_time
+import time
 from pushbullet import Pushbullet
 from bs4 import BeautifulSoup
 
@@ -23,13 +23,13 @@ def main():
         if len(cells) > 0 and len(cells[6]) > 0:
             leave=cells[1].text.strip()
             arrival=cells[2].text.strip()
-            time,status=cells[6].text.strip().split(" ")
+            ttime,status=cells[6].text.strip().split(" ")
             if "L" in status: 
                 minutes=int(status.replace('L',''))
                 if minutes > late:
                     msg = "The train leaving Winnersh at {0} was more than {3} minutes late.  It was {1} minutes late in total arriving at {2}".format(leave, str(minutes),arrival,str(late))   
                     pushbulletinit(msg)
-    jl_time.sleep(86400)
+    time.sleep(86400)
     main()
     
     
