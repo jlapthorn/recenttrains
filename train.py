@@ -13,7 +13,7 @@ def pushbulletinit(msg):
     push = pb.push_note("SWR Late Trains Alert", msg)
 
 r = requests.get(url) # Get The URL
-soup = BeautifulSoup(r.text, 'lxml') # Parse the HTML as a string
+soup = BeautifulSoup(r.text, 'html.parser') # Parse the HTML as a string
 trainTimes = soup.find_all('table')[1] # Find the second table containing train times
 
 for table_row in trainTimes.select("tr"):
