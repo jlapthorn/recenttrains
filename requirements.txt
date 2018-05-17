@@ -1,3 +1,2 @@
 Pushbullet.py
 BeautifulSoup4
-lxml
