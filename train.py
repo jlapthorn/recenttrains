@@ -1,6 +1,6 @@
 #!/usr/env/python
 import requests
-import time
+from time import jl_time
 from pushbullet import Pushbullet
 from bs4 import BeautifulSoup
 
@@ -29,7 +29,7 @@ def main():
                 if minutes > late:
                     msg = "The train leaving Winnersh at {0} was more than {3} minutes late.  It was {1} minutes late in total arriving at {2}".format(leave, str(minutes),arrival,str(late))   
                     pushbulletinit(msg)
-    time.sleep(86400)
+    jl_time.sleep(86400)
     main()
     
     
