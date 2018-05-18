@@ -3,14 +3,15 @@ import requests
 import time
 from pushbullet import Pushbullet
 from bs4 import BeautifulSoup
+from common import *
 
 #How many minutes late before delay repay
-late=15
+late=lateTime
 #URL used to scrap recenttraintimes.co.uk
-url="http://www.recenttraintimes.co.uk/Home/Search?Op=Srch&Fr=Winnersh+%28WNS%29&To=London+Waterloo+%28WAT%29&TimTyp=D&TimDay=4a&Days=Wk&TimPer=4w&dtFr=&dtTo=&ShwTim=AvAr&TOC=All&ArrSta=5&MetAvg=Mea&MetSpr=RT&MxScDu=&MxSvAg=&MnScCt=&MxArCl=5"
+url=recenttrainsURL
 
 def pushbulletinit(msg):
-    pb = Pushbullet("o.5V4FfVDdrdhvDsuxFH0Hmt7M5enT5bAq")
+    pb = Pushbullet(pbSecret)
     push = pb.push_note("SWR Late Trains Alert", msg)
 
 def main():
@@ -24,13 +25,13 @@ def main():
             leave=cells[1].text.strip()
             arrival=cells[2].text.strip()
             ttime,status=cells[6].text.strip().split(" ")
+            if debug: print leave,arrival,ttime,status
             if "L" in status: 
                 minutes=int(status.replace('L',''))
                 if minutes > late:
                     msg = "The train leaving Winnersh at {0} was more than {3} minutes late.  It was {1} minutes late in total arriving at {2}".format(leave, str(minutes),arrival,str(late))   
                     pushbulletinit(msg)
-    time.sleep(86400)
+    
+
+if __name__ == "__main__":
     main()
-    
-    
-main()
