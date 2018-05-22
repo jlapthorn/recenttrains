@@ -30,8 +30,9 @@ def main():
 
     for table_row in trainTimes.select("tr"):
         cells = table_row.findAll('td')
-        if len(cells) > 0 and len(cells[6]) > 0:
-            leave=cells[1].text.strip()
+	#print len(cells[6])
+        if len(cells) > 0 and len(cells[6]) > 0 and cells[6].text.strip() != "...":
+	    leave=cells[1].text.strip()
             arrival=cells[2].text.strip()
             ttime,status=cells[6].text.strip().split(" ")
             if debug: print leave,arrival,ttime,status
