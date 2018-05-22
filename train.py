@@ -9,10 +9,10 @@ import datetime
 #How many minutes late before delay repay
 late=lateTime
 #URL used to scrap recenttraintimes.co.uk
-midday=datetime.time(12)
+midday=datetime.time(pmHour)
 now=datetime.datetime.now()
 if now.hour < midday.hour:
-    url=recenttrainsURL
+    url=amURL
 else:
     url=pmURL
 
