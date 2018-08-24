@@ -1,10 +1,11 @@
 #!/usr/env/python
 import requests
 import time
-from pushbullet import Pushbullet
 from bs4 import BeautifulSoup
 from common import *
 import datetime
+import telegram
+
 
 #How many minutes late before delay repay
 late=lateTime
@@ -18,10 +19,10 @@ else:
 
 if debug: print url
 
-
-def pushbulletinit(msg):
-    pb = Pushbullet(pbSecret)
-    push = pb.push_note("SWR Late Trains Alert", msg)
+def telegramMessage(msg):
+  bot=telegram.Bot(token=telegramToken)
+  chat_id = bot.get_updates()[-1].message.chat_id
+  bot.send_message(chat_id, text=msg)
 
 def main():
     r = requests.get(url) # Get The URL
@@ -41,8 +42,14 @@ def main():
                 if debug: print minutes, late
                 if minutes > late:
                     msg = "The train leaving Winnersh at {0} was more than {3} minutes late.  It was {1} minutes late in total arriving at {2}".format(leave, str(minutes),arrival,str(late))   
-                    pushbulletinit(msg)
-    
+                    telegramMessage(msg)
+            elif "CANC" in status:
+            	if debug: print status
+		msg = "The train leaving Winnersh at {0} was cancelled".format(leave)  
+		telegramMessage(msg)
+
+
+
 
 if __name__ == "__main__":
    main()
